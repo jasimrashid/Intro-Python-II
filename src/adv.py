@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -33,19 +34,78 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# Add items to rooms
+room['outside'].add_item('sword', 'This can kill another player if there are multiple players and you encounter one in a room')
+room['foyer'].add_item('scroll_1', 'This will give you a clue')
+room['foyer'].add_item('sword', 'This can kill another player if there are multiple players and you encounter one in a room')
+room['treasure'].add_item('gem', 'You can trade this for something else')
+
 #
 # Main
 #
-
 # Make a new player object that is currently in the 'outside' room.
 
+player = Player(name = 'Jasim', current_room = room['outside'])
+
 # Write a loop that:
-#
-# * Prints the current room name
+# breakpoint()
+while True:
+
+# # * Prints the current room name
+    print("Current location: ", player.current_room)
+    # print("**")
+    print("Items in room:")
+    player.current_room.get_items()
+    print()
+    print(f"""Press 'N', 'S', 'E', 'W' to move in any direction. 
+    If there are items that can be picked up, press '1' to pick it up.
+    Press '2' to see items you have.
+    Press 'q' to quit.
+    """)
+
+    # breakpoint()
 # * Prints the current description (the textwrap module might be useful here).
+    
 # * Waits for user input and decides what to do.
+
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+    command = input("> ").split(',')
+
+    if command[0] == 'q':
+        break
+    elif command[0] == 'n':         
+        if hasattr(player.current_room, 'n_to') == False:
+            print('Cannot move north. Try again. \n')
+        else:
+            player.current_room = player.current_room.n_to
+        # check if player can move to the north
+        # if there is, set that north room to the player's location
+    elif command[0] == 's':
+        if hasattr(player.current_room, 's_to') == False:
+            print('Cannot move south. Try again. \n')
+        else:
+            player.current_room = player.current_room.s_to
+
+    elif command[0] == 'e':
+        if hasattr(player.current_room, 'e_to') == False:
+            print('Cannot move east. Try again. \n')
+        else:
+            player.current_room = player.current_room.e_to
+        
+
+    elif command[0] == 'w':
+        if hasattr(player.current_room, 'w_to') == False:
+            print('Cannot move west. Try again. \n')
+        else:
+            player.current_room = player.current_room.w_to
+
+
+
+
+# open items:
+# try catch block?
+
