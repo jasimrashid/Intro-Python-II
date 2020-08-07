@@ -5,6 +5,7 @@ class Player:
         self.name = name
         self.current_room = current_room
         self.items=[]
+        self.score=100
 
     def __str__(self):
         return f'name: {self.name}, current room: {self.current_room}'
@@ -17,8 +18,15 @@ class Player:
         #TODO
         return NotImplemented
 
-    def get_items(self):
-        for i, item in enumerate(self.items):
-            print("Item #", i)
-            print(item)
+    def get_items_names(self):
+        items_names=[]
+        for item in self.items:
+            items_names.append(item.name)
+        return items_names
     
+    def print_items(self):
+        if not self.items:
+            print("None")
+        for i, item in enumerate(self.items): 
+            print(f'# {i+1}: {item}')
+        

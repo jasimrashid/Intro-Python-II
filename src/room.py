@@ -7,12 +7,18 @@ class Room:
         self.name = name
         self.description = description
         self.items = []
+        self.is_light = False
+        self.lightsource = False
 
     def __str__(self):
-        return f'name: {self.name}, description: {self.description}'
+        return f'Name: {self.name}, Description: {self.description}'
 
-    def add_item(self, name, description):
-        item = Item(name=name, description=description)
+    # def add_item(self, name, description):
+    #     item = Item(name=name, description=description)
+    #     self.items.append(item)
+    #     return None
+
+    def add_item(self, item):
         self.items.append(item)
         return None
 
@@ -20,10 +26,21 @@ class Room:
         #TODO
         return NotImplemented
 
-    def get_items(self):
+    def get_items_names(self):
+        items_names=[]
+        for item in self.items:
+            items_names.append(item.name)
+        return items_names
+    
+
+    def print_items(self):
+        if not self.items:
+            print("None")
         for i, item in enumerate(self.items):
-            print("Item #", i+1)
-            print(item)
+            print(f'# {i+1}: {item}')
+        # for i, item in enumerate(self.items):
+        #     print(f'# {i+1}: {item}\n')
+        
 
 
 
